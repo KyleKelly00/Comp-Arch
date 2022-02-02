@@ -1,0 +1,29 @@
+   ORG    $1000
+START: 
+       
+    LEA MESSAGE, A1 
+    MOVE.W #105, $2000    
+    MOVE.B  #10, D0 
+    
+NEXT:
+    
+    SUB #1, D0 
+    ADD.B #1, D1 
+    MOVE.B D0, D2 
+    CMP #2, D1 
+    BSR POINTS_LOST    
+    MOVE.B #34, D0 
+    TRAP    #15 
+    MOVE.B D2, D0
+    CMP #0, D0 
+   
+POINTS_LOST:
+   
+     SUB.W #105, $2000 
+
+    SIMHALT  
+
+MESSAGE DC.B    'POINTS', 0
+
+
+    END    START  
